@@ -2,12 +2,18 @@
 
 A small, honest AWS lab in Terraform: remote state with locking, then a reusable VPC module. Built to learn AWS by mapping it to Azure patterns I already work with.
 
-**Status:** work in progress. Private until reviewed.
+**Status:** learning lab, Phase 1 complete. Not production.
 
 ## Scope (Phase 1)
 1. `bootstrap/`: S3 bucket for Terraform state (versioned, encrypted, public access blocked, native locking).
 2. `modules/vpc/`: reusable VPC module (VPC, public and private subnets, route tables, internet gateway, S3 gateway endpoint). No NAT gateway or interface endpoints (hourly cost).
 3. `modules/vpc/examples/basic/`: example that calls the module and uses the remote state backend.
+
+## Usage
+Requires Terraform 1.10 or later and credentials for an AWS lab account.
+1. `cd bootstrap`, then `terraform init` and `terraform apply` (local state). Note the `state_bucket_name` output.
+2. `cd modules/vpc/examples/basic`, then `terraform init -backend-config="bucket=<state_bucket_name>"` and `terraform apply`.
+3. Run `terraform destroy` in the example when finished. Destroy `bootstrap` last, once nothing else uses the state bucket (set `force_destroy = true` first if it still holds state).
 
 ## Azure to AWS map (kept up to date as I learn)
 | Azure | AWS |
@@ -41,3 +47,6 @@ Reviewed and deliberately left out of this lab. Each would be worth adding for a
 
 ## Safety
 No credentials, account IDs or state files are committed. See `.gitignore`.
+
+## License
+[MIT](LICENSE) © 2026 Jennifer Salvo
