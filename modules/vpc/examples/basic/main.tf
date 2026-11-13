@@ -10,10 +10,10 @@ terraform {
 
   # Remote state in the S3 bucket created by /bootstrap.
   # use_lockfile = native S3 locking (Azure equivalent: the blob lease).
-  # Backend blocks cannot use variables, so the bucket name is written out. It contains
-  # no account ID or secret.
+  # Backend blocks cannot use variables, so pass the bucket name at init time:
+  #   terraform init -backend-config="bucket=<state_bucket_name from bootstrap>"
   backend "s3" {
-    bucket       = "tfstate-68ab2883"
+    bucket       = "REPLACE_WITH_BOOTSTRAP_OUTPUT"
     key          = "vpc-example/terraform.tfstate"
     region       = "us-east-2"
     encrypt      = true
