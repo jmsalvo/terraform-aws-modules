@@ -1,6 +1,6 @@
 # terraform-aws-modules
 
-A small, honest AWS lab in Terraform: remote state with locking, then a reusable VPC module. Built to learn AWS by mapping it to Azure patterns I already work with.
+A small AWS lab in Terraform: remote state with locking, then a reusable VPC module. Built to learn AWS by mapping it to Azure patterns I already work with.
 
 **Status:** learning lab, Phase 1 complete. Not production.
 
